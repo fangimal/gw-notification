@@ -9,7 +9,6 @@ import (
 	mongodb "gw-notification/iternal/storage/mongo"
 	"gw-notification/pkg/logging"
 	"gw-notification/pkg/models"
-	"log/slog"
 	"os"
 	"os/signal"
 	"syscall"
@@ -61,10 +60,11 @@ func StartConsumer(cfg *config.Config, logger *logging.Logger, db *mongodb.Stora
 				continue
 			}
 
-			logger.Info("Notification saved",
-				"user_id", notification.UserID,
-				"amount", notification.Amount,
-				"currency", notification.Currency)
+			logger.WithFields(map[string]interface{}{
+				"user_id":  notification.UserID,
+				"amount":   notification.Amount,
+				"currency": notification.Currency,
+			}).Info("Notification saved")
 
 			if err = kafkaReader.CommitMessages(ctx, msg); err != nil {
 				logger.Warn("Failed to commit offset", "error", err)
@@ -73,7 +73,7 @@ func StartConsumer(cfg *config.Config, logger *logging.Logger, db *mongodb.Stora
 	}
 }
 
-func ProcessMessage(ctx context.Context, msg kafka.Message, storage storage.NotificationStorage, logger *slog.Logger) error {
+func ProcessMessage(ctx context.Context, msg kafka.Message, storage storage.NotificationStorage, logger *logging.Logger) error {
 	var notification models.Notification
 	if err := json.Unmarshal(msg.Value, &notification); err != nil {
 		return fmt.Errorf("unmarshal: %w", err)
@@ -83,6 +83,6 @@ func ProcessMessage(ctx context.Context, msg kafka.Message, storage storage.Noti
 		return fmt.Errorf("save: %w", err)
 	}
 
-	logger.Info("Notification saved", "user_id", notification.UserID)
+	//logger.Info("Notification saved", "user_id", notification.UserID)
 	return nil
 }
