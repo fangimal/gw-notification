@@ -1,0 +1,10 @@
+# DataBase
+storage: "mongodb://localhost:27018"
+
+kafka:
+  ConsumerGroup: "notifications-group"
+  ConsumerTopic: "notifications"
+  ConsumerPort: ":8081"
+  KafkaServerAddress: "localhost:9092"
+  KafkaTopic: "notification"
+  KafkaGroupID: "notifications"

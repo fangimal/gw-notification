@@ -1,0 +1,19 @@
+# ~/docker/common/mongo-compose.yml
+version: '3.8'
+services:
+  api_mongo:
+    image: mongo:latest
+    container_name: api_mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - api_mongo_data:/data/db
+    networks:
+      - common-net
+
+volumes:
+  api_mongo_data:
+
+networks:
+  common-net:
+    driver: bridge
