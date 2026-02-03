@@ -1,0 +1,9 @@
+storage: "mongodb://mongodb:27017"
+
+kafka:
+  ConsumerGroup: "notifications-group"
+  ConsumerTopic: "notifications"
+  ConsumerPort: ":8081"
+  KafkaServerAddress: "kafka:29092"
+  KafkaTopic: "notification"
+  KafkaGroupID: "notifications"

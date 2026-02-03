@@ -16,10 +16,12 @@ func main() {
 
 	//1. Загрузка конфига
 	cfg := config.GetConfig()
+	logger.Infof("Get Config: %v", cfg)
 
 	//2. Подключение к mongoDB
 
 	mongoStorage, err := mongodb.NewStorage(cfg.MongoConn)
+	logger.Infof("Подключение к mongoDB: %s", cfg.MongoConn)
 	if err != nil {
 		logger.Error("Failed to connect to MongoDB", "error", err)
 		os.Exit(1)
