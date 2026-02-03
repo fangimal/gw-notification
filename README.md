@@ -41,11 +41,9 @@ gw-notification/
 ├── internal/
 │   ├── broker/
 │   │   └── kafka/
-│   │       ├── consumer.go     # Обработчик Kafka сообщений
-│   │       └── producer.go     # Отправитель Kafka сообщений
+│   │       └── consumer.go     # Обработчик Kafka сообщений
 │   ├── config/                 # Конфигурация приложения
-│   │   ├── config.go
-│   │   └── defaults.go
+│   │   └── config.go
 │   ├── storage/
 │   │   ├── storage.go          # Интерфейс хранилища
 │   │   └── mongo/
